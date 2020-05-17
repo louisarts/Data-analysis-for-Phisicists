@@ -1,0 +1,368 @@
+THE CHI SQUARED TEST
+
+# coordinate generator for 10% chance of miss hit
+
+import random
+
+# list of coordinates that correspond to a 45° angle with x and y axis
+coordinates = []
+starting = [[0, 0], [1, 1], [2, 2], [3, 3], [4, 4], [5, 5], [6, 6], [7, 7]]
+# for each next Z, x can go up 1, down 1 or stay the same
+# for each next Z, y gan go up 1, down 1 or stay the same
+# loop 7 times to have 8 coordinates in total
+for i in range(8):
+    # get random number from 0 to 1
+    rand = random.random()
+    point = starting[i]
+# added in precentages for miss hit
+    # p(x=0 y=1): 10%
+    if (rand < 0.1):
+        point[1] += 1
+    # p(x=-1 y=1): 10%
+    elif (rand < 0.2):
+        point[0] -= 1
+        point[1] += 1
+    # p(x=-1 y=0): 10%
+    elif (rand < 0.3):
+        point[0] -= 1
+    # p(x=-1 y=-1): 10%
+    elif (rand < 0.4):
+        point[0] -= 1
+        point[1] -= 1
+    # p(x=0 y=-1): 10%
+    elif (rand < 0.5):
+        point[1] -= 1
+    # p(x=1 y=-1): 10%
+    elif (rand < 0.6):
+        point[0] += 1
+        point[1] -= 1
+    # p(x=1 y=0): 10%
+    elif (rand < 0.7):
+        point[0] += 1
+    # p(x=1 y=1): 30% #chance of correct hit to total 100% of hit
+    else:
+        point[0] += 1
+        point[1] += 1
+
+    # add next point to our coordinates list
+    new_point = [point[0], point[1]]
+    coordinates.append(new_point)
+
+# print all coordinates
+print('experimantal Coordinates:')
+for c in coordinates:
+    print(c)
+    
+# coordinate generator for 5% chance of miss hit
+
+import random
+
+# list of coordinates that correspond to a 45° angle with x and y axis
+coordinates = []
+starting = [[0, 0], [1, 1], [2, 2], [3, 3], [4, 4], [5, 5], [6, 6], [7, 7]]
+# for each next Z, x can go up 1, down 1 or stay the same
+# for each next Z, y gan go up 1, down 1 or stay the same
+# loop 7 times to have 8 coordinates in total
+for i in range(8):
+    # get random number from 0 to 1
+    rand = random.random()
+    point = starting[i]
+# added in precentages for miss hit
+    # p(x=0 y=1): 5%
+    if (rand < 0.05):
+        point[1] += 1
+    # p(x=-1 y=1): 5%
+    elif (rand < 0.1):
+        point[0] -= 1
+        point[1] += 1
+    # p(x=-1 y=0): 5%
+    elif (rand < 0.15):
+        point[0] -= 1
+    # p(x=-1 y=-1): 5%
+    elif (rand < 0.2):
+        point[0] -= 1
+        point[1] -= 1
+    # p(x=0 y=-1): 5%
+    elif (rand < 0.25):
+        point[1] -= 1
+    # p(x=1 y=-1): 5%
+    elif (rand < 0.3):
+        point[0] += 1
+        point[1] -= 1
+    # p(x=1 y=0): 5%
+    elif (rand < 0.35):
+        point[0] += 1
+    # p(x=1 y=1): 65% # chance of correct hit to total 100% chance of hit
+    else:
+        point[0] += 1
+        point[1] += 1
+
+    # add next point to our coordinates list
+    new_point = [point[0], point[1]]
+    coordinates.append(new_point)
+
+# print all coordinates
+print('experimantal Coordinates:')
+for c in coordinates:
+    print(c)
+    
+# chi squared calculator with manual inputs
+
+# inputs for observed x values (output from previous code)
+x_1 = int(input("x1 = "))
+x_2 = int(input("x2 = "))
+x_3 = int(input("x3 = "))
+x_4 = int(input("x4 = "))
+x_5 = int(input("x5 = "))
+x_6 = int(input("x6 = "))
+x_7 = int(input("x7 = "))
+x_8 = int(input("x8 = "))
+# inputs for observed y values (output from previous code)
+y_1 = int(input("y1 = "))
+y_2 = int(input("y2 = "))
+y_3 = int(input("y3 = "))
+y_4 = int(input("y4 = "))
+y_5 = int(input("y5 = "))
+y_6 = int(input("y6 = "))
+y_7 = int(input("y7 = "))
+y_8 = int(input("y8 = "))
+
+# the error is the width of a cell (1), so can be ignored in further calculations
+# Calculations of A,B,C,D and E
+A = y_1 + y_2 + y_3 + y_4 + y_5 + y_6 + y_7 + y_8
+B = 8 # 8 times the error
+C = x_1 + x_2 + x_3 + x_4 + x_5 + x_6 + x_7 + x_8
+D = y_1**2 + y_2**2 + y_3**2 + y_4**2 + y_5**2 + y_6**2 + y_7**2 + y_8**2
+E = x_1**2 + x_2**2 + x_3**2 + x_4**2 + x_5**2 + x_6**2 + x_7**2 + x_8**2
+
+# calculation of a and b
+a = (E*B - C*A)/(D*B - A**2)
+b = (D*C - E*A)/(D*B - A**2)
+
+# calculation of chi squared
+S = ((x_1 - a*y_1 - b)**2) + ((x_2 - a*y_2 - b)**2) + ((x_3 - a*y_3 - b)**2) + ((x_4 - a*y_4 - b)**2) + ((x_5 - a*y_5 - b)**2) + ((x_6 - a*y_6 - b)**2) + ((x_7 - a*y_7 - b)**2) + ((x_8 - a*y_8 - b)**2) 
+
+print ("S = ", S)
+
+#distribution of chi squared values
+import matplotlib.pyplot as plt
+# 30 chi squared values were calculated by manually inputting abserved data for different runs of 10% chance of miss hit
+x = [23.5, 3.0, 21.6, 5.1, 9.5, 12.4, 11.7, 5.2, 14.1, 20.1, 10.1, 11.6, 7.7, 13.2, 3.2, 25.2, 5.1, 4.9, 4.2, 7.2, 4.8, 9.0, 17.2, 7.6, 9.6, 7.2, 7.2, 16.5, 21.3, 7.5]
+plt.hist(x, bins = 25) #25 shows a good enough representation of data
+plt.show()
+
+#distribution of chi squared values
+import matplotlib.pyplot as plt
+# 30 chi squared values were calculated by manually inputting abserved data for different runs of 5% chance of miss hit
+x = [3.1, 0, 17.0, 0.6, 4.9, 24.6, 17.6, 7.8, 2.2, 9.2, 3.4, 3.5, 5.8, 8.9, 5.6, 0.7, 13.1, 1.8, 0, 3.2, 7.5, 0, 4.6, 13.0, 12.5, 1.6, 4.1, 1.2, 13.5, 1.6]
+plt.hist(x, bins = 25)
+plt.show()
+
+We can see from these 2 plots, that the chi squared values are distributed more towards bigger numbers in the 10% miss hit plot compared to the 5% miss hit plot. This shows, what can be expected, the bigger the chance of a miss hit, the larger the chi squared value and therefore the more the observed differs from the expected values, and the larger the error in a single track.
+
+DID OUR TRACKS COME FROM THE SAME PLACE?
+
+# coordinate generator for 10% chance of miss hit
+import random
+
+# list of coordinates that correspond to a 45° angle with x and y axis
+coordinates = []
+starting = [[5, 0], [6, 1], [7, 2], [8, 3], [9, 4], [10, 5], [11, 6], [12, 7]] # particle now comes from a different location (I assumed it comes from a location 5 pixels from the right of the origial origin)
+# for each next Z, x can go up 1, down 1 or stay the same
+# for each next Z, y gan go up 1, down 1 or stay the same
+# loop 7 times to have 8 coordinates in total
+for i in range(8):
+    # get random number from 0 to 1
+    rand = random.random()
+    point = starting[i]
+# added in precentages for miss hit
+    # p(x=0 y=1): 10%
+    if (rand < 0.1):
+        point[1] += 1
+    # p(x=-1 y=1): 10%
+    elif (rand < 0.2):
+        point[0] -= 1
+        point[1] += 1
+    # p(x=-1 y=0): 10%
+    elif (rand < 0.3):
+        point[0] -= 1
+    # p(x=-1 y=-1): 10%
+    elif (rand < 0.4):
+        point[0] -= 1
+        point[1] -= 1
+    # p(x=0 y=-1): 10%
+    elif (rand < 0.5):
+        point[1] -= 1
+    # p(x=1 y=-1): 10%
+    elif (rand < 0.6):
+        point[0] += 1
+        point[1] -= 1
+    # p(x=1 y=0): 10%
+    elif (rand < 0.7):
+        point[0] += 1
+    # p(x=1 y=1): 30% #chance of correct hit to total 100% of hit
+    else:
+        point[0] += 1
+        point[1] += 1
+
+    # add next point to our coordinates list
+    new_point = [point[0], point[1]]
+    coordinates.append(new_point)
+
+# print all coordinates
+print('experimantal Coordinates:')
+for c in coordinates:
+    print(c)
+    
+The following 3 particle tracks were generated with the first code:
+(1,0)(1,2)(2,3)(3,2)(5,4)(6,5)(5,5)(8,7)
+(0,1)(2,1)(3,3)(2,3)(3,5)(4,4)(7,7)(8,8)
+(1,1)(1,0)(3,3)(3,4)(5,5)(7,6)(7,7)(6,7)
+The following particle track was generated with the code above, where the expected origin was placed 5 pixels to the right, compared to the first 3 particles:
+(5,1)(5,0)(6,1)(7,3)(10,3)(9,6)(10,5)(13,8)
+Point of closest approach for these 4 candidates:
+(8,6) This point was chosen because it is a coordinate that is has at least one coordinate of each line above at least 1 coordinate away.
+ This coordinate was then takes as the new origin and a track was generated below:
+ 
+ # coordinate generator for 10% chance of miss hit
+import random
+
+# list of coordinates that correspond to a 45° angle with x and y axis
+coordinates = []
+starting = [[8, 6], [9, 7], [10, 8], [11, 9], [12, 10], [13, 11], [14, 12], [15, 13]] # particle now comes from new origin
+# for each next Z, x can go up 1, down 1 or stay the same
+# for each next Z, y gan go up 1, down 1 or stay the same
+# loop 7 times to have 8 coordinates in total
+for i in range(8):
+    # get random number from 0 to 1
+    rand = random.random()
+    point = starting[i]
+# added in precentages for miss hit
+    # p(x=0 y=1): 10%
+    if (rand < 0.1):
+        point[1] += 1
+    # p(x=-1 y=1): 10%
+    elif (rand < 0.2):
+        point[0] -= 1
+        point[1] += 1
+    # p(x=-1 y=0): 10%
+    elif (rand < 0.3):
+        point[0] -= 1
+    # p(x=-1 y=-1): 10%
+    elif (rand < 0.4):
+        point[0] -= 1
+        point[1] -= 1
+    # p(x=0 y=-1): 10%
+    elif (rand < 0.5):
+        point[1] -= 1
+    # p(x=1 y=-1): 10%
+    elif (rand < 0.6):
+        point[0] += 1
+        point[1] -= 1
+    # p(x=1 y=0): 10%
+    elif (rand < 0.7):
+        point[0] += 1
+    # p(x=1 y=1): 30% #chance of correct hit to total 100% of hit
+    else:
+        point[0] += 1
+        point[1] += 1
+
+    # add next point to our coordinates list
+    new_point = [point[0], point[1]]
+    coordinates.append(new_point)
+
+# print all coordinates
+print('experimantal Coordinates:')
+for c in coordinates:
+    print(c)
+    
+# chi squared calculator with manual inputs
+
+# inputs for observed x values
+x_1 = int(input("x1 = "))
+x_2 = int(input("x2 = "))
+x_3 = int(input("x3 = "))
+x_4 = int(input("x4 = "))
+x_5 = int(input("x5 = "))
+x_6 = int(input("x6 = "))
+x_7 = int(input("x7 = "))
+x_8 = int(input("x8 = "))
+#inputs for observed y values
+y_1 = int(input("y1 = "))
+y_2 = int(input("y2 = "))
+y_3 = int(input("y3 = "))
+y_4 = int(input("y4 = "))
+y_5 = int(input("y5 = "))
+y_6 = int(input("y6 = "))
+y_7 = int(input("y7 = "))
+y_8 = int(input("y8 = "))
+
+# the error is the width of a cell (1), so can be ignored in further calculations
+# Calculations of A,B,C,D and E
+A = y_1 + y_2 + y_3 + y_4 + y_5 + y_6 + y_7 + y_8
+B = 8 # 8 times the error
+C = x_1 + x_2 + x_3 + x_4 + x_5 + x_6 + x_7 + x_8
+D = y_1**2 + y_2**2 + y_3**2 + y_4**2 + y_5**2 + y_6**2 + y_7**2 + y_8**2
+E = x_1**2 + x_2**2 + x_3**2 + x_4**2 + x_5**2 + x_6**2 + x_7**2 + x_8**2
+
+# calculation of a and b
+a = (E*B - C*A)/(D*B - A**2)
+b = (D*C - E*A)/(D*B - A**2)
+
+# calculation of chi squared
+S = ((x_1 - a*y_1 - b)**2) + ((x_2 - a*y_2 - b)**2) + ((x_3 - a*y_3 - b)**2) + ((x_4 - a*y_4 - b)**2) + ((x_5 - a*y_5 - b)**2) + ((x_6 - a*y_6 - b)**2) + ((x_7 - a*y_7 - b)**2) + ((x_8 - a*y_8 - b)**2) 
+
+print (S)
+
+Chi squared is always very large number for our track with (8,6) as origin
+
+BACK TO PROBABILITY:
+
+Number of degrees of freedom: dr = 8 - 2 = 6
+8 because there are 8 detection points. We substract 2 because there are 2 spacial dimensions associated with each detection point (x and y but not z).
+The level of significance is chosen to be 0.05, this can be chosen by the researcher and is often 0.05.
+The average of chi squared values from both the 10% chance of miss hit and the 5% chance of miss hit distributions are respectively 10.88 and 6.42.
+The P value, using these data can then be looked up in a table or calculated by a p-value calculator.
+10% chance of miss hit:
+The P-Value is .09206. The result is not significant at p < .05. This test at 10% miss hit is therefore not a good enough representation of the expected data and can not be used to describe the underlying physics.
+5% chance of miss hit:
+The P-Value is .377821. The result is not significant at p < .05. This test at 5% miss hit is therefore not a good enough representation of the expected data and can not be used to describe the underlying physics.
+
+# inputs for observed x values
+x_1 = int(input("x1 = "))
+x_2 = int(input("x2 = "))
+x_3 = int(input("x3 = "))
+x_4 = int(input("x4 = "))
+x_5 = int(input("x5 = "))
+x_6 = int(input("x6 = "))
+x_7 = int(input("x7 = "))
+x_8 = int(input("x8 = "))
+#inputs for observed y values
+y_1 = int(input("y1 = "))
+y_2 = int(input("y2 = "))
+y_3 = int(input("y3 = "))
+y_4 = int(input("y4 = "))
+y_5 = int(input("y5 = "))
+y_6 = int(input("y6 = "))
+y_7 = int(input("y7 = "))
+y_8 = int(input("y8 = "))
+
+# the error is the width of a cell (1), so can be ignored in further calculations
+# Calculations of A,B,C,D and E
+A = y_1 + y_2 + y_3 + y_4 + y_5 + y_6 + y_7 + y_8
+B = 8 # 8 times the error
+C = x_1 + x_2 + x_3 + x_4 + x_5 + x_6 + x_7 + x_8
+D = y_1**2 + y_2**2 + y_3**2 + y_4**2 + y_5**2 + y_6**2 + y_7**2 + y_8**2
+E = x_1**2 + x_2**2 + x_3**2 + x_4**2 + x_5**2 + x_6**2 + x_7**2 + x_8**2
+
+# calculation of a and b
+a = (E*B - C*A)/(D*B - A**2)
+b = (D*C - E*A)/(D*B - A**2)
+
+# calculation of chi squared
+S = ((x_1 - a*y_1 - b)**2) + ((x_2 - a*y_2 - b)**2) + ((x_3 - a*y_3 - b)**2) + ((x_4 - a*y_4 - b)**2) + ((x_5 - a*y_5 - b)**2) + ((x_6 - a*y_6 - b)**2) + ((x_7 - a*y_7 - b)**2) + ((x_8 - a*y_8 - b)**2) 
+
+# deviding this number by the degrees of freedom gives:
+S_deg = S/6
+
+print(S_deg)
