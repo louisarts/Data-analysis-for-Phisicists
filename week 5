@@ -1,0 +1,10 @@
+# xlrd is needed to load excel files
+!pip install xlrd
+!pip install psycopg2
+
+import pandas as pd
+import numpy  as np
+import matplotlib.pyplot as plt
+import psycopg2 as ps
+
+pandas.read_excel()
